@@ -1,4 +1,4 @@
-# ✅ Project: laravel12_create_chart_example
+# ✅ Project: PHP_Laravel12_Create_Charts
 
 ## 📊 Laravel 12 + Chart.js Dynamic Chart Example
 
@@ -26,8 +26,8 @@ This tutorial shows how to integrate **Chart.js** into a **Laravel 12** applicat
 Run this command to create the project skeleton:
 
 ```bash
-composer create-project laravel/laravel:^12.0 laravel12_chart_example
-cd laravel12_chart_example
+composer create-project laravel/laravel:^12.0 PHP_Laravel12_Create_Charts
+cd PHP_Laravel12_Create_Charts
 ```
 
 This creates a fresh Laravel 12 application in the `laravel12_chart_example` folder.
@@ -249,7 +249,7 @@ No backend change required.
 ## 📁 Final Project Structure
 
 ```
-laravel12_chart_example
+PHP_Laravel12_Create_Charts
 ├── app/Http/Controllers/ChartController.php
 ├── resources/views/chart.blade.php
 ├── public/
@@ -260,4 +260,4 @@ laravel12_chart_example
 
 ---
 
-✅ Your Laravel 12 Chart Example project is now complete and ready to use! 🎉
+✅ Your PHP_Laravel12_Create_Charts project is now complete and ready to use! 🎉
