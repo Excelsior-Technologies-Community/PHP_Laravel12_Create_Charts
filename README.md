@@ -1,6 +1,4 @@
-# ✅ Project: PHP_Laravel12_Create_Charts
-
-## 📊 Laravel 12 + Chart.js Dynamic Chart Example
+#  Project: PHP_Laravel12_Create_Charts
 
 **Introduction**
 
@@ -10,7 +8,7 @@ This tutorial shows how to integrate **Chart.js** into a **Laravel 12** applicat
 
 ---
 
-## ⭐ Project Features
+##  Project Features
 
 * Laravel 12
 * Chart.js integration (CDN)
@@ -21,7 +19,7 @@ This tutorial shows how to integrate **Chart.js** into a **Laravel 12** applicat
 
 ---
 
-## ⭐ Step 1: Create Laravel 12 Project
+##  Step 1: Create Laravel 12 Project
 
 Run this command to create the project skeleton:
 
@@ -34,7 +32,7 @@ This creates a fresh Laravel 12 application in the `laravel12_chart_example` fol
 
 ---
 
-## ⭐ Step 2: Create Route
+##  Step 2: Create Route
 
 **File:** `routes/web.php`
 
@@ -58,7 +56,7 @@ Route::get('/chart', [ChartController::class, 'index'])
 
 ---
 
-## ⭐ Step 3: Create Chart Controller
+##  Step 3: Create Chart Controller
 
 Create controller:
 
@@ -105,7 +103,7 @@ class ChartController extends Controller
 
 ---
 
-## ⭐ Step 4: Create Chart View
+##  Step 4: Create Chart View
 
 **File:** `resources/views/chart.blade.php`
 
@@ -212,7 +210,7 @@ To keep JavaScript clean and editor-friendly, Laravel Blade data is passed using
 
 ---
 
-## ⭐ Step 5: Run Project
+##  Step 5: Run Project
 
 Start the built-in server:
 
@@ -230,7 +228,7 @@ You should see the Chart.js bar chart rendered with the sample data.
 
 ---
 
-## ⭐ Chart Types You Can Easily Switch
+##  Chart Types You Can Easily Switch
 
 In the view, change `type: 'bar'` to any supported Chart.js type:
 
