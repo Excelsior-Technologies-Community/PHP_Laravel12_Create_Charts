@@ -28,7 +28,7 @@ composer create-project laravel/laravel:^12.0 PHP_Laravel12_Create_Charts
 cd PHP_Laravel12_Create_Charts
 ```
 
-This creates a fresh Laravel 12 application in the `laravel12_chart_example` folder.
+This creates a fresh Laravel 12 application in the `PHP_Laravel12_Create_Charts` folder.
 
 ---
 
@@ -244,7 +244,7 @@ No backend change required.
 
 ---
 
-## 📁 Final Project Structure
+## Final Project Structure
 
 ```
 PHP_Laravel12_Create_Charts
@@ -255,7 +255,16 @@ PHP_Laravel12_Create_Charts
 └── .env
 ├── package.json   // present but not required for CDN approach
 ```
-
+---
+# Output:
 ---
 
-✅ Your PHP_Laravel12_Create_Charts project is now complete and ready to use! 🎉
+Open in browser:
+
+```
+http://127.0.0.1:8000/chart
+```
+
+<img width="1919" height="1021" alt="Screenshot 2025-12-08 195103" src="https://github.com/user-attachments/assets/3ab70a43-6ad1-44e4-b195-41909c7f873d" />
+
+Your PHP_Laravel12_Create_Charts project is now complete and ready to use! 
