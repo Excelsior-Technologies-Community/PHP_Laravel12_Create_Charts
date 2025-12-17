@@ -265,6 +265,8 @@ Open in browser:
 http://127.0.0.1:8000/chart
 ```
 
-<img width="1919" height="1021" alt="Screenshot 2025-12-08 195103" src="https://github.com/user-attachments/assets/3ab70a43-6ad1-44e4-b195-41909c7f873d" />
+<img width="1919" height="1026" alt="Screenshot 2025-12-17 100827" src="https://github.com/user-attachments/assets/5d75f1a7-8c86-4855-9e51-717f287805b3" />
 
+
+---
 Your PHP_Laravel12_Create_Charts project is now complete and ready to use! 
