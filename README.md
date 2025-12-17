@@ -1,66 +1,273 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+#  Project: PHP_Laravel12_Create_Charts
 
-## About Laravel
+**Introduction**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This tutorial shows how to integrate **Chart.js** into a **Laravel 12** application and display charts using backend data. The example uses Blade views and the Chart.js CDN — **no npm or frontend build step is required**. This is intentionally simple and perfect for learning, quick demos, small dashboards, or interview projects.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> **Important:** This document **omits** the `npm install` / `npm run dev` step by design. We load Chart.js and Tailwind via CDN so there's no need for Vite/npm for this project.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+##  Project Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* Laravel 12
+* Chart.js integration (CDN)
+* Controller → View data flow
+* Clean MVC structure
+* No npm / Vite required (CDN-based)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+##  Step 1: Create Laravel 12 Project
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Run this command to create the project skeleton:
 
-### Premium Partners
+```bash
+composer create-project laravel/laravel:^12.0 PHP_Laravel12_Create_Charts
+cd PHP_Laravel12_Create_Charts
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+This creates a fresh Laravel 12 application in the `PHP_Laravel12_Create_Charts` folder.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+##  Step 2: Create Route
 
-## Code of Conduct
+**File:** `routes/web.php`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```php
+<?php
 
-## Security Vulnerabilities
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChartController;
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Route::get('/', function () {
+    return view('welcome');
+});
 
-## License
+// Chart Example Route
+Route::get('/chart', [ChartController::class, 'index'])
+     ->name('chart.index');
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* `/chart` will display the Chart.js example page.
+* The route points to `ChartController@index` which prepares data and returns the view.
+
+---
+
+##  Step 3: Create Chart Controller
+
+Create controller:
+
+```bash
+php artisan make:controller ChartController
+```
+
+**File:** `app/Http/Controllers/ChartController.php`
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+/**
+ * ChartController
+ * ----------------
+ * Responsible for preparing chart data
+ * and passing it to the view.
+ */
+class ChartController extends Controller
+{
+    /**
+     * Display chart view
+     */
+    public function index()
+    {
+        // Sample dynamic data (can come from DB)
+        $labels = ['January', 'February', 'March', 'April', 'May', 'June'];
+        $data   = [12, 19, 3, 5, 2, 8];
+
+        return view('chart', compact('labels', 'data'));
+    }
+}
+```
+
+**Explanation:**
+
+* The controller prepares two arrays: `$labels` (x-axis) and `$data` (y-axis).
+* We pass these to the Blade view named `chart` using `compact()`.
+* In real projects you would fetch this data from a database or API rather than hard-coding it.
+
+---
+
+##  Step 4: Create Chart View
+
+**File:** `resources/views/chart.blade.php`
+
+This Blade view is responsible for rendering the chart UI.
+It loads Chart.js and Tailwind CSS via CDN and displays dynamic chart data passed from the controller.
+
+To keep JavaScript clean and editor-friendly, Laravel Blade data is passed using HTML data-* attributes instead of embedding Blade syntax directly inside JavaScript.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laravel 12 Chart Example</title>
+
+    <!-- ✅ Chart.js library loaded using CDN -->
+    <!-- This allows us to create charts without installing npm -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- ✅ Tailwind CSS via CDN for basic UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <!-- ✅ Main container card for the chart -->
+    <div class="bg-white p-8 rounded shadow-lg w-full max-w-3xl">
+
+        <!-- ✅ Page heading -->
+        <h2 class="text-2xl font-bold text-center mb-6">
+            Laravel 12 Chart Example
+        </h2>
+
+        <!-- ✅ Canvas element where Chart.js will render the chart -->
+        <!-- ✅ Blade passes PHP data to HTML using data attributes -->
+        <!-- ✅ data-labels = X-axis values -->
+        <!-- ✅ data-values = Y-axis values -->
+        <canvas
+            id="myChart"
+            data-labels='@json($labels)'
+            data-values='@json($data)'>
+        </canvas>
+    </div>
+
+    <!-- ✅ Pure JavaScript starts here -->
+    <!-- ✅ No Blade syntax inside JS (best practice) -->
+    <script>
+
+        // ✅ Get the canvas element using its ID
+        const canvas = document.getElementById('myChart');
+
+        // ✅ Read labels data from HTML data attribute
+        // ✅ Convert JSON string to JavaScript array
+        const labels = JSON.parse(canvas.dataset.labels);
+
+        // ✅ Read chart values from HTML data attribute
+        // ✅ Convert JSON string to JavaScript array
+        const data = JSON.parse(canvas.dataset.values);
+
+        // ✅ Get 2D drawing context from canvas
+        const ctx = canvas.getContext('2d');
+
+        // ✅ Create new Chart instance
+        new Chart(ctx, {
+
+            // ✅ Chart type (bar / line / pie)
+            type: 'bar',
+
+            // ✅ Chart data configuration
+            data: {
+                labels: labels, // X-axis values
+
+                datasets: [{
+                    label: 'Monthly Data', // Chart legend label
+                    data: data, // Y-axis values
+
+                    // ✅ Bar color
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+
+                    // ✅ Border color of bars
+                    borderColor: 'rgba(54, 162, 235, 1)',
+
+                    // ✅ Border thickness
+                    borderWidth: 1
+                }]
+            },
+
+            // ✅ Chart options
+            options: {
+                responsive: true, // Makes chart responsive
+
+                scales: {
+                    y: {
+                        beginAtZero: true // Y-axis starts from 0
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+```
+
+---
+
+##  Step 5: Run Project
+
+Start the built-in server:
+
+```bash
+php artisan serve
+```
+
+Open in browser:
+
+```
+http://127.0.0.1:8000/chart
+```
+
+You should see the Chart.js bar chart rendered with the sample data.
+
+---
+
+##  Chart Types You Can Easily Switch
+
+In the view, change `type: 'bar'` to any supported Chart.js type:
+
+```js
+type: 'line'
+// or
+type: 'pie'
+// or
+type: 'doughnut'
+```
+
+No backend change required.
+
+---
+
+## Final Project Structure
+
+```
+PHP_Laravel12_Create_Charts
+├── app/Http/Controllers/ChartController.php
+├── resources/views/chart.blade.php
+├── public/
+├── routes/web.php
+└── .env
+├── package.json   // present but not required for CDN approach
+```
+---
+# Output:
+---
+
+Open in browser:
+
+```
+http://127.0.0.1:8000/chart
+```
+
+<img width="1919" height="1026" alt="Screenshot 2025-12-17 100827" src="https://github.com/user-attachments/assets/5d75f1a7-8c86-4855-9e51-717f287805b3" />
+
+
+---
+Your PHP_Laravel12_Create_Charts project is now complete and ready to use! 
