@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #  Project: PHP_Laravel12_Create_Charts
 
@@ -55,6 +56,64 @@ Route::get('/chart', [ChartController::class, 'index'])
 * `/chart` will display the Chart.js example page.
 * The route points to `ChartController@index` which prepares data and returns the view.
 
+=======
+#  Project: PHP_Laravel12_Create_Charts
+
+**Introduction**
+
+This tutorial shows how to integrate **Chart.js** into a **Laravel 12** application and display charts using backend data. The example uses Blade views and the Chart.js CDN — **no npm or frontend build step is required**. This is intentionally simple and perfect for learning, quick demos, small dashboards, or interview projects.
+
+> **Important:** This document **omits** the `npm install` / `npm run dev` step by design. We load Chart.js and Tailwind via CDN so there's no need for Vite/npm for this project.
+
+---
+
+##  Project Features
+
+* Laravel 12
+* Chart.js integration (CDN)
+* Controller → View data flow
+* Clean MVC structure
+* No npm / Vite required (CDN-based)
+
+
+---
+
+##  Step 1: Create Laravel 12 Project
+
+Run this command to create the project skeleton:
+
+```bash
+composer create-project laravel/laravel:^12.0 PHP_Laravel12_Create_Charts
+cd PHP_Laravel12_Create_Charts
+```
+
+This creates a fresh Laravel 12 application in the `PHP_Laravel12_Create_Charts` folder.
+
+---
+
+##  Step 2: Create Route
+
+**File:** `routes/web.php`
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChartController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Chart Example Route
+Route::get('/chart', [ChartController::class, 'index'])
+     ->name('chart.index');
+```
+
+* `/chart` will display the Chart.js example page.
+* The route points to `ChartController@index` which prepares data and returns the view.
+
+>>>>>>> development
 ---
 
 ##  Step 3: Create Chart Controller
@@ -266,8 +325,15 @@ Open in browser:
 http://127.0.0.1:8000/chart
 ```
 
+<<<<<<< HEAD
 <img width="1919" height="1026" alt="Screenshot 2025-12-17 100827" src="https://github.com/user-attachments/assets/5d75f1a7-8c86-4855-9e51-717f287805b3" />
 
 
 ---
+=======
+<img width="1919" height="1026" alt="Screenshot 2025-12-17 100827" src="https://github.com/user-attachments/assets/6317249f-f400-46d7-a183-ec0ab57246dd" />
+
+---
+
+>>>>>>> development
 Your PHP_Laravel12_Create_Charts project is now complete and ready to use! 
