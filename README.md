@@ -265,7 +265,13 @@ Open in browser:
 http://127.0.0.1:8000/chart
 ```
 
+<<<<<<< HEAD
 <img width="1919" height="1026" alt="Screenshot 2025-12-17 100827" src="https://github.com/user-attachments/assets/5d75f1a7-8c86-4855-9e51-717f287805b3" />
+=======
+<img width="1919" height="1026" alt="Screenshot 2025-12-17 100827" src="https://github.com/user-attachments/assets/6317249f-f400-46d7-a183-ec0ab57246dd" />
+
+---
+>>>>>>> development
 
 
 ---
