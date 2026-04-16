@@ -13,5 +13,6 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/chart', [ChartController::class, 'index'])
-     ->name('chart.index');
+Route::get('/chart', [ChartController::class, 'sampleChart'])
+     ->name('chart.sample');
+Route::get('/monthly-sales-orders', [ChartController::class, 'monthlySalesOrders']);
