@@ -1,0 +1,1 @@
+@extends('charts.create')
