@@ -2,38 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chart;
 use Illuminate\Http\Request;
-use DB;
 
 class ChartController extends Controller
 {
-    /**
-     * Sample chart (single dataset) for demo purposes
-     */
-
-
-    public function sampleChart()
+    public function index()
     {
-        $labels = ['January', 'February', 'March', 'April', 'May', 'June'];
-        $data = [12, 19, 3, 5, 2, 8];
-
-        // Pass $data, leave $salesData and $ordersData empty
-        return view('chart', compact('labels'))
-            ->with('data', $data)
-            ->with('salesData', [])
-            ->with('ordersData', []);
+        $charts = Chart::all();
+        return view('dashboard', compact('charts'));
     }
 
-    /**
-     * Monthly Sales vs Orders chart (dual dataset)
-     */
-    public function monthlySalesOrders()
+    public function create()
     {
-        $labels = ['January', 'February', 'March', 'April', 'May', 'June'];
-        $salesData = [1200, 1900, 300, 500, 200, 800];
-        $ordersData = [300, 450, 150, 200, 120, 250]; // now pink bars visible
-        return view('chart', compact('labels', 'salesData', 'ordersData'));
+        return view('charts.create');
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|in:bar,line,pie,doughnut,radar,polarArea',
+            'labels' => 'required|json',
+            'values' => 'required|json',
+            'theme' => 'nullable|string|in:light,dark',
+        ]);
 
+        $validated['options'] = json_decode($validated['options'] ?? '{}', true);
+
+        Chart::create($validated);
+
+        return redirect()->route('dashboard')->with('success', 'Chart created successfully.');
+    }
+
+    public function edit(Chart $chart)
+    {
+        return view('charts.edit', compact('chart'));
+    }
+
+    public function update(Request $request, Chart $chart)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|in:bar,line,pie,doughnut,radar,polarArea',
+            'labels' => 'required|json',
+            'values' => 'required|json',
+            'theme' => 'nullable|string|in:light,dark',
+        ]);
+
+        $validated['options'] = json_decode($validated['options'] ?? '{}', true);
+
+        $chart->update($validated);
+
+        return redirect()->route('dashboard')->with('success', 'Chart updated successfully.');
+    }
+
+    public function destroy(Chart $chart)
+    {
+        $chart->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Chart deleted successfully.');
+    }
+
+    public function apiCharts()
+    {
+        $charts = Chart::all(['id', 'title', 'type', 'labels', 'values']);
+        return response()->json($charts);
+    }
+
+    public function show(Chart $chart)
+    {
+        return response()->json($chart);
+    }
 }
